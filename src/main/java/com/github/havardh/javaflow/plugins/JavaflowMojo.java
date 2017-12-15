@@ -31,6 +31,7 @@ import com.github.havardh.javaflow.phases.verifier.MemberFieldsPresentVerifier;
 import com.github.havardh.javaflow.phases.writer.flow.FlowWriter;
 import com.github.havardh.javaflow.phases.writer.flow.converter.Converter;
 import com.github.havardh.javaflow.phases.writer.flow.converter.JavaFlowConverter;
+import com.github.havardh.javaflow.plugins.exceptions.PackageDirectoryNotFound;
 
 /**
  * Generates flow types for a set of java models
@@ -64,7 +65,7 @@ public class JavaflowMojo extends AbstractMojo {
     try {
       apis.forEach(this::run);
     } catch (Exception e) {
-      throw new MojoExecutionException("Could not generate types", e);
+      throw new MojoExecutionException("Could not generate types\n\n", e);
     }
   }
 
@@ -75,6 +76,12 @@ public class JavaflowMojo extends AbstractMojo {
    */
   private void run(Api api) {
     String baseSourceDirectory = sourceDirectory + "/" + api.getPackageName().replace('.', '/');
+
+    File baseDirectoryFile = new File(baseSourceDirectory);
+
+    if (!baseDirectoryFile.isDirectory()) {
+      throw new PackageDirectoryNotFound(api.getPackageName(), baseSourceDirectory);
+    }
 
     Collection<File> files = FileUtils.listFiles(
         new File(baseSourceDirectory),
