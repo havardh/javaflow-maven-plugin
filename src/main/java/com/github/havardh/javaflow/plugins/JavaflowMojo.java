@@ -1,5 +1,6 @@
 package com.github.havardh.javaflow.plugins;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -110,7 +111,9 @@ public class JavaflowMojo extends AbstractMojo {
     );
 
     try {
-      Files.write(Paths.get(targetDirectory + "/" + api.getOutput()), asList(flow.split("\n")));
+      String outputFile = targetDirectory + "/" + api.getOutput();
+      Files.write(Paths.get(outputFile), asList(flow.split("\n")));
+      getLog().info(format("Wrote %d types to %s.", files.size(), outputFile));
     } catch (IOException e) {
       getLog().error(e);
     }
