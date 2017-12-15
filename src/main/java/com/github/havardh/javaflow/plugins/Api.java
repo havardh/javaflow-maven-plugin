@@ -1,7 +1,13 @@
 package com.github.havardh.javaflow.plugins;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonList;
+import static java.util.Optional.ofNullable;
+
 import java.util.List;
 import java.util.Map;
+
+import com.github.havardh.javaflow.plugins.exceptions.MissingPackageParameter;
 
 public class Api {
 
@@ -13,18 +19,18 @@ public class Api {
   public Api() {}
 
   public String getPackageName() {
-    return packageName;
+    return ofNullable(packageName).orElseThrow(MissingPackageParameter::new);
   }
 
   public List<String> getSuffixes() {
-    return suffixes;
+    return ofNullable(suffixes).orElse(singletonList(".java"));
   }
 
   public String getOutput() {
-    return output;
+    return ofNullable(output).orElse("flow.js");
   }
 
   public Map<String, String> getTypes() {
-    return types;
+    return ofNullable(types).orElse(emptyMap());
   }
 }
