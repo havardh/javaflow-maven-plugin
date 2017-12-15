@@ -75,19 +75,7 @@ public class JavaflowMojo extends AbstractMojo {
    * @param api - the api to generate flowtypes for
    */
   private void run(Api api) {
-    String baseSourceDirectory = sourceDirectory + "/" + api.getPackageName().replace('.', '/');
-
-    File baseDirectoryFile = new File(baseSourceDirectory);
-
-    if (!baseDirectoryFile.isDirectory()) {
-      throw new PackageDirectoryNotFound(api.getPackageName(), baseSourceDirectory);
-    }
-
-    Collection<File> files = FileUtils.listFiles(
-        new File(baseSourceDirectory),
-        new SuffixFileFilter(api.getSuffixes().toArray(new String[]{})),
-        TrueFileFilter.INSTANCE
-    );
+    Collection<File> files = getModelFiles(api);
 
     TypeMap typeMap = api.getTypes() == null ? TypeMap.emptyTypeMap() : new TypeMap(api.getTypes());
 
@@ -126,5 +114,21 @@ public class JavaflowMojo extends AbstractMojo {
     } catch (IOException e) {
       getLog().error(e);
     }
+  }
+
+  private Collection<File> getModelFiles(Api api) {
+    String baseSourceDirectory = sourceDirectory + "/" + api.getPackageName().replace('.', '/');
+
+    File baseDirectoryFile = new File(baseSourceDirectory);
+
+    if (!baseDirectoryFile.isDirectory()) {
+      throw new PackageDirectoryNotFound(api.getPackageName(), baseSourceDirectory);
+    }
+
+    return FileUtils.listFiles(
+        new File(baseSourceDirectory),
+        new SuffixFileFilter(api.getSuffixes().toArray(new String[]{})),
+        TrueFileFilter.INSTANCE
+    );
   }
 }
