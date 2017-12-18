@@ -60,7 +60,7 @@
     <dependency>
       <groupId>com.github.havardh</groupId>
       <artifactId>javaflow</artifactId>
-      <version>1.3.0</version>
+      <version>1.4.1</version>
     </dependency>
   </dependencies>
   <distributionManagement>

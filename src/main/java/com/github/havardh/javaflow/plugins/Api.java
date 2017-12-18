@@ -15,6 +15,7 @@ public class Api {
   private List<String> suffixes;
   private String output;
   private Map<String, String> types;
+  private Map<String, Boolean> verifications;
 
   public Api() {}
 
@@ -32,5 +33,9 @@ public class Api {
 
   public Map<String, String> getTypes() {
     return ofNullable(types).orElse(emptyMap());
+  }
+
+  public Map<String, Boolean> getVerifications() {
+    return ofNullable(verifications).orElse(emptyMap());
   }
 }
