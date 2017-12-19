@@ -32,6 +32,9 @@ Add the following to the plugins section of your `pom.xml` file.
           <!-- value is a valid flow (https://flow.org/) type -->
           <java.math.BigDecimal>number</java.math.BigDecimal>
         </types>
+        <verifications>
+          <verifyGetters>true</verifyGetters>
+        </verifications>
       </api>
 
       <!-- more api nodes if applicable -->
