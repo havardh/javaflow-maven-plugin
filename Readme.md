@@ -10,7 +10,7 @@ Add the following to the plugins section of your `pom.xml` file.
 <plugin>
   <groupId>com.github.havardh</groupId>
   <artifactId>javaflow-maven-plugin</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <configuration>
 
     <!-- Specify output target directory. Default: ${basedir}/src/main/java -->
