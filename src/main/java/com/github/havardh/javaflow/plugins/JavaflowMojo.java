@@ -7,6 +7,7 @@ import static java.util.Collections.singletonList;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -115,6 +116,7 @@ public class JavaflowMojo extends AbstractMojo {
     );
 
     try {
+      prepareTargetDirectory(targetDirectory);
       String outputFile = targetDirectory + "/" + api.getOutput();
       Files.write(Paths.get(outputFile), asList(flow.split("\n")));
       getLog().info(format("Wrote %d types to %s.", files.size(), outputFile));
@@ -154,5 +156,10 @@ public class JavaflowMojo extends AbstractMojo {
     }
 
     return verifiers;
+  }
+
+  private void prepareTargetDirectory(String targetDirectory) throws IOException {
+    Path outputPath = Paths.get(targetDirectory);
+    Files.createDirectories(outputPath);
   }
 }
