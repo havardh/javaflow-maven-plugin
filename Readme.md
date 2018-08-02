@@ -33,6 +33,9 @@ Add the following to the plugins section of your `pom.xml` file.
           <java.math.BigDecimal>number</java.math.BigDecimal>
         </types>
         <verifications>
+          <!-- optional flag specifying if the engine should verify that -->
+          <!-- the number of getters is the same as the number of fields and -->
+          <!-- the types of the fields are the same as the types returned from the getters -->
           <verifyGetters>true</verifyGetters>
         </verifications>
       </api>
