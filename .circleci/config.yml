@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/javaflow-maven-plugin
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+
+    steps:
+
+      - checkout
+
+      # Install javaflow snapshot version in ~/.m2
+      - run:
+          command: |
+            git clone https://github.com/havardh/javaflow.git
+            cd javaflow
+            ./gradlew publishToMavenLocal
+
+      # cache javaflow-maven-plugin
+      - restore_cache:
+          key: javaflow-maven-plugin-{{ checksum "pom.xml" }}s
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: javaflow-maven-plugin-{{ checksum "pom.xml" }}
+
+      # Install javaflow-maven-plugin snapshot version in ~/.m2
+      - run: mvn install -DskipTests -Dgpg.skip
+
+      # Run type generation with the maven plugin in the sample project
+      - run:
+          command: |
+            cd javaflow-maven-plugin-sample
+            mvn javaflow:build
