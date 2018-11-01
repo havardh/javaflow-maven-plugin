@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.github.havardh.javaflow.phases.resolver.FileResolver;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -89,6 +90,7 @@ public class JavaflowMojo extends AbstractMojo {
     Converter converter = new JavaFlowConverter(typeMap);
 
     Execution execution = new Execution(
+        new FileResolver(),
         new FileReader(),
         new JavaParser(),
         asList(
