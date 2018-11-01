@@ -4,7 +4,7 @@
   <groupId>com.github.havardh</groupId>
   <artifactId>javaflow-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.4.0</version>
+  <version>1.4.1-SNAPSHOT</version>
 
   <name>Javaflow Maven Plugin</name>
   <description>Maven plugin for running JavaFlow</description>
@@ -60,7 +60,7 @@
     <dependency>
       <groupId>com.github.havardh</groupId>
       <artifactId>javaflow</artifactId>
-      <version>1.5.0</version>
+      <version>1.5.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <distributionManagement>
